@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Planner - Plan Your Perfect Trip</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>✈️ Travel Planner</h1>
+            <p>Plan your perfect trip with ease</p>
+        </header>
+
+        <form id="travelForm" action="https://dg3.app.n8n.cloud/webhook-test/68a062bd-3f60-4592-b498-50c15d9c7a10" method="post">
+            <!-- Destination/Location -->
+            <div class="form-group">
+                <label for="destination">Destination / Location <span style="color: var(--error-color);">*</span></label>
+                <input 
+                    type="text" 
+                    id="destination" 
+                    name="destination" 
+                    placeholder="e.g., Paris, France" 
+                    required
+                    autocomplete="off"
+                >
+                <span class="error-message">Please enter a valid destination</span>
+            </div>
+
+            <!-- Number of Days -->
+            <div class="form-group">
+                <label for="days">Number of Days <span style="color: var(--error-color);">*</span></label>
+                <input 
+                    type="number" 
+                    id="days" 
+                    name="days" 
+                    placeholder="e.g., 5" 
+                    min="1" 
+                    required
+                >
+                <span class="error-message">Please enter a valid number of days</span>
+            </div>
+
+            <!-- Budget and Mode of Travel Row -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="budget">Budget <span style="color: var(--error-color);">*</span></label>
+                    <div class="input-with-icon">
+                        <span class="currency-icon">₹</span>
+                        <input 
+                            type="number" 
+                            id="budget" 
+                            name="budget" 
+                            placeholder="50000" 
+                            min="1" 
+                            required
+                        >
+                    </div>
+                    <span class="error-message">Please enter a valid budget</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="mode">Mode of Travel <span style="color: var(--error-color);">*</span></label>
+                    <select id="mode" name="mode" required>
+                        <option value="">Select mode</option>
+                        <option value="bus">Bus</option>
+                        <option value="train">Train</option>
+                        <option value="flight">Flight</option>
+                        <option value="car">Car</option>
+                    </select>
+                    <span class="error-message">Please select a mode of travel</span>
+                </div>
+            </div>
+
+            <!-- Number of Travelers and Email Row -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="travelers">Number of Travelers <span style="color: var(--error-color);">*</span></label>
+                    <input 
+                        type="number" 
+                        id="travelers" 
+                        name="travelers" 
+                        placeholder="e.g., 2" 
+                        min="1" 
+                        required
+                    >
+                    <span class="error-message">Please enter a valid number</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address <span style="color: var(--error-color);">*</span></label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        placeholder="your.email@example.com" 
+                        required
+                        autocomplete="email"
+                    >
+                    <span class="error-message">Please enter a valid email address</span>
+                </div>
+            </div>
+
+            <!-- Additional Preferences (Optional) -->
+            <div class="form-group">
+                <label for="preferences">Additional Preferences <span style="color: var(--text-secondary); font-weight: 400;">(Optional)</span></label>
+                <textarea 
+                    id="preferences" 
+                    name="preferences" 
+                    rows="4" 
+                    placeholder="e.g., Prefer beach destinations, vegetarian food, pet-friendly hotels..."
+                ></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="submit-btn">Plan My Trip</button>
+        </form>
+
+        <!-- Summary Card (Hidden by default) -->
+        <div id="summary" class="summary-card hidden">
+            <div class="summary-header">
+                <h2>✓ Trip Details Submitted!</h2>
+            </div>
+            <div class="summary-content">
+                <p><strong>Destination:</strong> <span id="sum-destination"></span></p>
+                <p><strong>Duration:</strong> <span id="sum-days"></span> days</p>
+                <p><strong>Travelers:</strong> <span id="sum-travelers"></span></p>
+                <p><strong>Budget:</strong> ₹<span id="sum-budget"></span></p>
+                <p><strong>Mode of Travel:</strong> <span id="sum-mode"></span></p>
+                <p><strong>Email:</strong> <span id="sum-email"></span></p>
+                <p id="sum-pref-row" class="hidden"><strong>Preferences:</strong> <span id="sum-preferences"></span></p>
+            </div>
+            <button id="resetBtn" class="reset-btn">Plan Another Trip</button>
+        </div>
+
+        <!-- n8n Response Popup -->
+        <div id="n8nModal" class="modal hidden" aria-hidden="true" role="dialog" aria-labelledby="n8nModalTitle">
+            <div class="modal-backdrop"></div>
+            <div class="modal-dialog">
+                <div class="modal-header">
+                    <h3 id="n8nModalTitle">Your Generated Itinerary</h3>
+                    <button id="n8nModalClose" class="modal-close" aria-label="Close itinerary popup">&times;</button>
+                </div>
+                <div id="n8nModalBody" class="modal-body">
+                    <!-- Response from n8n will be injected here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
